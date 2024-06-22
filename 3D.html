@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Player</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .container {
+            position: relative;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .controls {
+            position: absolute;
+            top: 282.0px; /* Positioning controls 10px from the top of the container */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0); /* Semi-transparent background */
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .controls button {
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 9px 29px;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .controls button:hover {
+            background-color: #555;
+        }
+        .controls i {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <video id="myVideo" width="640" height="360" controls>
+            <source src="my-video.mp4" type="video/mp4"> <!-- अपनी वीडियो फ़ाइल का नाम यहां डालें -->
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button id="backwardBtn" onclick="skip(-10)">
+                <i class="fas fa-backward"></i>
+            </button>
+            <button onclick="playPause()">
+                <i class="fas fa-play"></i>
+            </button>
+            <button id="forwardBtn" onclick="skip(10)">
+                <i class="fas fa-forward"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        var video = document.getElementById("myVideo");
+        var playButton = document.querySelector('.controls button:nth-child(2) i');
+
+        video.addEventListener('play', function() {
+            playButton.className = 'fas fa-pause';
+        });
+
+        video.addEventListener('pause', function() {
+            playButton.className = 'fas fa-play';
+        });
+
+        function playPause() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        function skip(time) {
+            video.currentTime += time;
+        }
+    </script>
+</body>
+</html>
